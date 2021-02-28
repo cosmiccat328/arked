@@ -24,14 +24,19 @@ public class Movingscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isGrounded = Physics2D.OverlapCircle(groundPoint.position, .2f, whatisGround);
         rb.velocity = new Vector2(moveSpeed * Input.GetAxis("Horizontal"), rb.velocity.y);
+        if (isGrounded)
+        {
+            canDoubleJump = true;
+        }
         if (Input.GetButtonDown("Jump"))
         {
-            isGrounded = Physics2D.OverlapCircle(groundPoint.position, .2f, whatisGround);
+            
             if (isGrounded)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                canDoubleJump = true;
+                
             }
             else
             {
